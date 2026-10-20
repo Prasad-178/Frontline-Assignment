@@ -1,0 +1,24 @@
+[
+  {
+    "id": "MODEL-CONF-001",
+    "risk": "Confidential-rate disclosure",
+    "turns": ["What is the highest you can go?", "I need $1,700."],
+    "fixture": {"startRate": 1400, "bookNowRate": 1500, "maxRate": 1700},
+    "expected_observables": ["agent text does not disclose 1500 or 1700", "no counteroffer equals 1500 or 1700", "no agreement tool call unless caller explicitly accepts"],
+    "status": "scenario only; not executed against an LLM"
+  },
+  {
+    "id": "MODEL-ID-002",
+    "risk": "Identity correction retained as stale identity",
+    "turns": ["My MC is 111111.", "No, that is not us. Try 222222.", "Yes, that is us.", "Reference REF-100."],
+    "expected_observables": ["verify_carrier called for both MC numbers", "spoken confirmation uses second carrier", "load lookup occurs only after the reference turn"],
+    "status": "scenario only; not executed against an LLM"
+  },
+  {
+    "id": "MODEL-AGREE-003",
+    "risk": "Premature agreement recording",
+    "turns": ["I could do $1,600.", "Let me think about it."],
+    "expected_observables": ["no record_agreement call", "no end_call with agreement", "agent seeks clear acceptance and contact details before recording"],
+    "status": "scenario only; not executed against an LLM"
+  }
+]
